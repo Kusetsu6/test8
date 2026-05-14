@@ -1,23 +1,12 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
-from aiogram.filters import Command, CommandStart, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.filters import Command, CommandStart
 
 API_TOKEN = "8756157675:AAHO6Nk1hJUtNvs_y3-LF9EgFjhjmlnSK34"
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
-
-@dp.message(Command("start"))
-async def show_menu(message: Message):
-    keyboard = ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="Привіт 👋"), KeyboardButton(text="Як справи? 😊")],
-            [KeyboardButton(text="Анекдот 🤣")]
-        ],
-        resize_keyboard=True
-    )
-    await message.answer("Вибери опцію:", reply_markup=keyboard)
 
 # /start
 @dp.message(CommandStart())
@@ -53,7 +42,13 @@ async def echo_text(message: Message):
     elif "як справи" in text:
         await message.answer("У мене все супер, дякую! А в тебе?")
     else:
-        await message.answer("Я ще вчуся, тому не знаю як відповісти на це 😅")
+        await message.answer("їде п'яний чоловік в трамваї і говорить: "
+                             "- зара дорахую до 48 і почну ригати "
+                             "пасажири подумали, що поки дощитає встигнуть вийти "
+                             "Пяниця: 6*8=48"
+                             )
+
+
 
 # Запуск
 async def main():
