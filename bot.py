@@ -28,6 +28,10 @@ async def joke_command(message: Message):
 async def bye_command(message: Message):
     await message.answer("До побачення! Гарного дня 😊")
 
+@dp.message(Command("about"))
+async def about_command(message: Message):
+    await message.answer("я хворію мені погано температури немає Володька")
+
 # Обробка звичайного тексту
 @dp.message()
 async def echo_text(message: Message):
