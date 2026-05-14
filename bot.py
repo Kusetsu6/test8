@@ -16,7 +16,7 @@ async def start(message: Message):
 # /help
 @dp.message(Command("help"))
 async def help_command(message: Message):
-    await message.answer("Команди:\n/start — запуск\n/help — допомога\n/joke — жарт\n/bye — прощання \n/about — про мене")
+    await message.answer("Команди:\n/start — запуск\n/help — допомога\n/joke — жарт\n/bye — прощання\n/about — про мене")
 
 # /joke
 @dp.message(Command("joke"))
