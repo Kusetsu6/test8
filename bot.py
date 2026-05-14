@@ -1,4 +1,5 @@
 import asyncio
+from aiogram import Router
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.filters import Command, CommandStart
@@ -7,6 +8,7 @@ API_TOKEN = "8756157675:AAHO6Nk1hJUtNvs_y3-LF9EgFjhjmlnSK34"
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
+router = Router()
 
 # /start
 @dp.message(CommandStart())
@@ -24,9 +26,21 @@ async def joke_command(message: Message):
     await message.answer("Колобок повісивси!")
 
 # /about
-@dp.message(Command("about"))
+@router.message(Command("about"))
 async def about_command(message: Message):
-    await message.answer("цей бот створив Володька")
+    answers = [
+        "цей бот створив Володька",
+        "Я імператор всесвіту",
+        "бот написаний на Python",
+        "мене створили інопланетяни 👽"
+    ]
+
+    await message.answer(random.choice(answers))
+
+@dp.message(Command("quize"))
+async def quize_command(message: Message):
+    await message.answer("Найпершим аніме в історії вважається короткометражний фільм «Namakura Gatana» («Тупий меч»), випущений у 1917 році. Це німа чорно-біла робота тривалістю близько 2 хвилин, створена режисером Дзюнічі Коучі. У ньому розповідається комічна історія про самурая, який купив тупий меч.")
+
 
 # /bye
 @dp.message(Command("bye"))
