@@ -21,7 +21,7 @@ async def help_command(message: Message):
 # /joke
 @dp.message(Command("joke"))
 async def joke_command(message: Message):
-    await message.answer("Чому комп’ютер пішов у спортзал? Щоб прокачати свої байти!")
+    await message.answer("Колобок повісивси!")
 
 # /about
 @dp.message(Command("about"))
