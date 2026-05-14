@@ -30,7 +30,7 @@ async def bye_command(message: Message):
 
 @dp.message(Command("about"))
 async def about_command(message: Message):
-    await message.answer("я хворію мені погано температури немає 'Володька нефілософ'")
+    await message.answer("я хворію мені, погано температури немає 'Володька нефілософ'")
 
 # Обробка звичайного тексту
 @dp.message()
