@@ -1,15 +1,14 @@
 import asyncio
 from aiogram import Bot, Dispatcher
-from aiogram.filters import Command
-from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import Message
+from aiogram.filters import Command, CommandStart, ReplyKeyboardMarkup, KeyboardButton
 
 API_TOKEN = "8756157675:AAHO6Nk1hJUtNvs_y3-LF9EgFjhjmlnSK34"
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
-# Команда /menu показує кнопки
-@dp.message(Command("menu"))
+@dp.message(Command("start"))
 async def show_menu(message: Message):
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
@@ -20,21 +19,44 @@ async def show_menu(message: Message):
     )
     await message.answer("Вибери опцію:", reply_markup=keyboard)
 
-# Обробка натискань
-@dp.message()
-async def handle_message(message: Message):
-    text = message.text
-    if text == "Привіт 👋":
-        await message.answer("Привіт-привіт! 👋")
-    elif text == "Як справи? 😊":
-        await message.answer("Усе чудово! А в тебе?")
-    elif text == "Анекдот 🤣":
-        await message.answer("Як називається кіт-програміст? — JavaMeow!")
-    else:
-        await message.answer("Натисни одну з кнопок 😺")
+# /start
+@dp.message(CommandStart())
+async def start(message: Message):
+    await message.answer("Привіт, я твій бот! Напиши /help, щоб дізнатися, що я вмію.")
 
+# /help
+@dp.message(Command("help"))
+async def help_command(message: Message):
+    await message.answer("Команди:\n/start — запуск\n/help — допомога\n/joke — жарт\n/about - про мене\n/bye — прощання")
+
+# /joke
+@dp.message(Command("joke"))
+async def joke_command(message: Message):
+    await message.answer("Чому комп’ютер пішов у спортзал? Щоб прокачати свої байти!")
+
+# /about
+@dp.message(Command("about"))
+async def about_command(message: Message):
+    await message.answer("цей бот створив Володька")
+
+# /bye
+@dp.message(Command("bye"))
+async def bye_command(message: Message):
+    await message.answer("До побачення! Гарного дня 😊")
+
+# Обробка звичайного тексту
+@dp.message()
+async def echo_text(message: Message):
+    text = message.text.lower()
+    if "привіт" in text:
+        await message.answer("Привіт! Гарного настрою 😄")
+    elif "як справи" in text:
+        await message.answer("У мене все супер, дякую! А в тебе?")
+    else:
+        await message.answer("Я ще вчуся, тому не знаю як відповісти на це 😅")
+
+# Запуск
 async def main():
-    print("Бот запущений...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
